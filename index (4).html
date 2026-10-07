@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc;
+            color: #111;
+            padding-bottom: 60px;
+        }
+
+        /* Clean Branding Header */
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 22px;
+            color: #111;
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: #ff6600;
+            font-size: 12px;
+            font-weight: 600;
+            display: block;
+            letter-spacing: 1px;
+            margin-top: 3px;
+        }
+
+        /* Section Title - Top Layout */
+        .section-title {
+            text-align: center;
+            margin: 50px auto 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            color: #111;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .section-title h2 span {
+            color: #ff6600;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* Full-Width Image Slider */
+        .full-width-slider {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 550px;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Image Ke Upar Name Ka Style */
+        .slide-caption {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.6) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .slide-caption h3 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            border-bottom: 3px solid #ff6600;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                height: 320px;
+            }
+            .slide-caption h3 {
+                font-size: 22px;
+            }
+        }
+
+        /* Slider Indicators/Dots */
+        .slider-dots {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #ff6600;
+            transform: scale(1.2);
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Main Grid Container */
+        .portfolio-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Single Main Combined Grid Layout */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 35px;
+            margin-bottom: 80px;
+        }
+
+        .portfolio-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* Premium Card Layout */
+        .portfolio-card {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border-color: #ff6600;
+        }
+
+        /* Screenshot Banner Frame */
+        .screenshot-container {
+            width: 100%;
+            height: 190px;
+            background-color: #eaeaea;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover .screenshot-container img {
+            transform: scale(1.04);
+        }
+
+        /* Content Info Layout */
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .badge {
+            align-self: flex-start;
+            background-color: #fff0e6;
+            color: #ff6600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .view-live {
+            margin-top: 20px;
+            color: #ff6600;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- Contact Section Styles --- */
+        .contact-section-wrapper {
+            background-color: #fafafa;
+            border-top: 1px solid #eee;
+            padding: 60px 0;
+            margin-top: 40px;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .contact-title-box {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-title-box h3 {
+            font-size: 32px;
+            color: #ff6600;
+            font-weight: 700;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .contact-info-side h4 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #111;
+        }
+
+        .contact-info-side p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .info-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .info-icon {
+            background-color: #ff6600;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .info-text strong {
+            display: block;
+            font-size: 16px;
+            color: #111;
+            margin-bottom: 4px;
+        }
+
+        .info-text span {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            display: block;
+        }
+
+        /* Form Styles */
+        .contact-form-side {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #e8e8e8;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #ff6600;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 14px 35px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #e05500;
+        }
+    </style>
+</head>
+<body>
+
+        <div class="section-title">
+        <h2>Our <span>Portfolio</span></h2>
+        <p>Explore our expertise across diverse industries and live project environments.</p>
+    </div>
+
+    <div class="full-width-slider">
+        <div class="slider-container" id="sliderContainer">
+            
+            <div class="slide">
+                <img src="wordpress.jpg" alt="WordPress Development and Design">
+                <div class="slide-caption"><h3>WordPress Development & Design</h3></div>
+            </div>
+            
+            <div class="slide">
+                <img src="web.jpg" alt="Web Architecture Layouts">
+                <div class="slide-caption"><h3>Web Architecture Layouts</h3></div>
+            </div>
+            
+            <div class="slide">
+                <img src="MObile app.jpg" alt="Mobile App Development">
+                <div class="slide-caption"><h3>Mobile App Development</h3></div>
+            </div>
+            
+            <div class="slide">
+                <img src="UI-UX.jpg" alt="UI UX Wireframing and Design">
+                <div class="slide-caption"><h3>UI / UX Wireframing</h3></div>
+            </div>
+            
+            <div class="slide">
+                <img src="Graphics designer.jpg" alt="Graphics Design Environment">
+                <div class="slide-caption"><h3>Graphic Designing</h3></div>
+            </div>
+            
+            <div class="slide">
+                <img src="SEO.jpg" alt="Search Engine Optimization">
+                <div class="slide-caption"><h3>Search Engine Optimization (SEO)</h3></div>
+            </div>
+            
+            <div class="slide">
+                <img src="SEM.jpg" alt="Search Engine Marketing">
+                <div class="slide-caption"><h3>Search Engine Marketing (SEM)</h3></div>
+            </div>
+            
+            <div class="slide">
+                <img src="didtal.jpg" alt="Strategic Synergy Digital Marketing">
+                <div class="slide-caption"><h3>Digital Marketing Strategy</h3></div>
+            </div>
+
+        </div>
+        <div class="slider-dots" id="sliderDots"></div>
+    </div>
+
+    <div class="portfolio-container">
+        <div class="portfolio-grid">
+
+            <a href="https://techkraft-cybersecurity.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (301).png" alt="Cyber Security Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Security</span>
+                        <div class="card-title">Cyber Security Program</div>
+                        <div class="card-desc">Advanced cyber defence tracking system featuring live ethical labs, penetration dashboards, and threat monitoring models.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://techkraftierswebdev.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (302).png" alt="Web Development Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Development</span>
+                        <div class="card-title">Modern Web Development</div>
+                        <div class="card-desc">Professional front-to-back architecture layouts tracking full responsive elements, modern hosting setups, and live tracking.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://techkraftiers-pythonwithdatascience.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (303).png" alt="Data Science Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Data Tech</span>
+                        <div class="card-title">Data Science with Python</div>
+                        <div class="card-desc">Advanced dashboard matrices showcasing intelligent statistical logic, custom algorithmic sets, and graphical plots.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://techkraftiersmernstack.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (304).png" alt="MERN Stack Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Full Stack</span>
+                        <div class="card-title">MERN Full Stack Mastery</div>
+                        <div class="card-desc">Highly optimized live tracking application environment showcasing modern cloud flows across standard database grids.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://claras-cake-demo-tk.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (305).png" alt="Claras Cake Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Bakery Portal</span>
+                        <div class="card-title">Clara's Custom Cakes</div>
+                        <div class="card-desc">Vibrant premium commercial display platform mapping gourmet collections, customization setups, and ordering layouts.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://photography-demo-tk.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (306).png" alt="Fusion Studio Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Cinematography</span>
+                        <div class="card-title">Fusion Photography Studio</div>
+                        <div class="card-desc">An elite media asset gallery showcasing advanced digital wedding logs, pre-shoot designs, and media modules.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://techkraftiers-kayachikitsademo.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (307).png" alt="Kayachikitsa Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Ayurveda Clinic</span>
+                        <div class="card-title">Kayachikitsa Ayurvedic Clinic</div>
+                        <div class="card-desc">Traditional organic treatment platform optimized to manage physical consultation flows and wellness packages.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://techkraftiersdataanalyticscoursenerul.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (308).png" alt="Data Analytics Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Analytics</span>
+                        <div class="card-title">Data Analytics Training</div>
+                        <div class="card-desc">Enterprise analytics program dashboard tracking industrial business logic via BI platforms and SQL structures.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://projectforclinic.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (309).png" alt="Skin Care Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Healthcare</span>
+                        <div class="card-title">Skin & Hair Luxury Clinic</div>
+                        <div class="card-desc">Modern cosmetic luxury booking template tracking specialist care, skin therapies, and expert schedules.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://techkraftiersphotography.netlify.app/" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (310).png" alt="Photography Studio Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Media Production</span>
+                        <div class="card-title">Premium Cinematic Storytelling</div>
+                        <div class="card-desc">Meticulously targeted creative production house framework mapping live capture systems and custom sessions.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://realestatenew-six.vercel.app" target="_blank" class="portfolio-card-link">
+                <div class="portfolio-card">
+                    <div class="screenshot-container">
+                        <img src="Screenshot (314).png" alt="Real Estate Live Interface">
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">Real estate</span>
+                        <div class="card-title">Real Estate</div>
+                        <div class="card-desc">Delivering premium real estate solutions through strategic property marketing, expert consultations, and personalized services 
+                            designed to help buyers, sellers, and investors achieve their goals.</div>
+                        <div class="view-live">Open Live Project →</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://mrunali-mohite.infinityfreeapp.com/preschool/?i=1" target="_blank" class="portfolio-card-link">
+    <div class="portfolio-card">
+        <div class="screenshot-container">
+            <img src="Screenshot (315).png" alt="Preschool Live Interface">
+        </div>
+        <div class="card-content">
+            <span class="badge">Preschool</span>
+            <div class="card-title">Preschool Website</div>
+            <div class="card-desc">
+                Creating a nurturing and engaging learning environment for young minds through interactive programs, experienced educators, and child-focused activities designed to support early childhood development.
+            </div>
+            <div class="view-live">Open Live Project →</div>
+        </div>
+    </div>
+</a>
+        </div>
+    </div>
+
+    <div class="contact-section-wrapper">
+        <div class="contact-container">
+            <div class="contact-title-box">
+                <h3>Let's Discuss Your Project</h3>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info-side">
+                    <h4>Contact Information</h4>
+                    <p>Have questions about our services or ready to start your next project? Contact us today and our team will get back to you as soon as possible.</p>
+                    
+                    <div class="info-block">
+                        <div class="info-icon">📍</div>
+                        <div class="info-text">
+                            <strong>Our Location</strong>
+                            <span><strong>Nerul Address:</strong> F-19-A, Haware's Centurion Mall, Sector 19A, Nerul East, Navi Mumbai, 400706.</span>
+                            <span style="margin-top: 8px;"><strong>Taloja Address:</strong> Shop no. 14, AK Orion, Sector 16, plot no. 4, Taloja phase-2, 410208, near Pendhar Metro Station.</span>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <div class="info-icon">📞</div>
+                        <div class="info-text">
+                            <strong>Phone Number</strong>
+                            <span>+91 7738415492</span>
+                        </div>
+                    </div>
+
+                    <div class="info-block">
+                        <div class="info-icon">✉️</div>
+                        <div class="info-text">
+                            <strong>Email Address</strong>
+                            <span>info@techkraftiersdigital.in</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-side">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="" disabled selected>Select Service</option>
+                                <option value="web-dev">Web Development</option>
+                                <option value="cyber-security">Cyber Security</option>
+                                <option value="data-science">Data Science</option>
+                                <option value="digital-marketing">Digital Marketing</option>
+                                <option value="other">Other</option>
+                            <input type="tel" placeholder="Enter other service" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message Add if more"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('sliderContainer');
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('sliderDots');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        // Automatically Generate dots
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if(idx === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(idx));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateDots() {
+            dots.forEach((dot, idx) => {
+                if(idx === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            container.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateDots();
+        }
+
+        // Automatic Sliding configuration (3 seconds timer)
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            goToSlide(currentIndex);
+        }, 3000);
+    </script>
+
+</body>
+</html>
